@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microterio - Identificación Bioquímica Bacteriana</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelPink: '#ffd1dc',
+                        pastelBlue: '#b4eeb4',
+                        pastelYellow: '#fdfd96',
+                        pastelPurple: '#e6e6fa',
+                        pastelGreen: '#c1ffc1',
+                        pastelOrange: '#ffdab9',
+                        pastelTeal: '#afeeee',
+                        pastelLavender: '#e0b0ff',
+                        darkText: '#1a1a1a',
+                        cardBg: '#ffffff',
+                        bodyBg: '#f9fafb'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            background-color: #f7f9fc;
+        }
+        /* Alineación justificada para todos los textos de la página */
+        body *:not(i):not(svg):not(path):not(input):not(textarea) {
+            text-align: justify !important;
+        }
+        /* Mantener centrada la descripción principal de la página de inicio */
+        #hero-description { text-align: center !important; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    
+        .home-page #desktop-nav,
+        .home-page #mobile-menu-wrapper { display:none !important; }
+        .page-view { display:none; }
+        .page-view.active { display:block; }
+        .bacterial-section { scroll-margin-top: 6rem; }
+
+        /* Texto justificado en las entradas y fichas informativas */
+        .bacterial-section p,
+        .bacterial-section .bg-gray-50,
+        #info-bacterias p,
+        #info-bacterias .text-xs {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        button, input, a { -webkit-tap-highlight-color: transparent; }
+        @media (max-width: 640px) {
+          header .h-20 { height: 4.25rem; }
+          #mobile-menu-btn { min-width:44px; min-height:44px; }
+          #bacteria-search { font-size:16px; }
+          .responsive-grid { grid-template-columns: repeat(1,minmax(0,1fr)); }
+          main { padding-left:1rem; padding-right:1rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after { scroll-behavior:auto !important; transition:none !important; animation:none !important; }
+        }
+    </style>
+</head>
+<body class="bg-bodyBg text-darkText flex flex-col min-h-screen home-page">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-pastelPurple flex items-center justify-center text-darkText font-bold shadow-inner">
+                        <i class="fa-solid fa-flask-vial text-lg"></i>
+                    </div>
+                    <a href="#" class="text-2xl font-bold tracking-tight text-darkText hover:opacity-80 transition">
+                        Microterio
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation Buttons -->
+                <nav id="desktop-nav" class="hidden xl:flex items-center space-x-2">
+                    <!-- Dropdown Generator Loop via HTML structure -->
+                    <!-- 1. Klebsiella -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-pastelPink/60 hover:bg-pastelPink text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            Klebsiella <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-klebsiella-tsi" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPink/30 transition">1. TSI (Triple Sugar Iron)</a>
+                            <a href="#test-klebsiella-sim" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPink/30 transition">2. SIM (Sulfhídrico, Indol, Movilidad)</a>
+                            <a href="#test-klebsiella-citrato" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPink/30 transition">3. Citrato de Simmons</a>
+                            <a href="#test-klebsiella-ureasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPink/30 transition">4. Ureasa</a>
+                            <a href="#test-klebsiella-mrvp" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPink/30 transition">5. MR-VP (Rojo de Metilo / Voges-Proskauer)</a>
+                            <a href="#test-klebsiella-lmo" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPink/30 transition">6. LMO (Lisina, Ornitina, Motilidad)</a>
+                            <a href="#test-klebsiella-gelatinasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPink/30 transition">7. Gelatinasa</a>
+                        </div>
+                    </div>
+
+                    <!-- 2. Escherichia coli -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-pastelBlue/60 hover:bg-pastelBlue text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            E. coli <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-ecoli-tsi" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelBlue/30 transition">1. TSI (Triple Sugar Iron)</a>
+                            <a href="#test-ecoli-indol" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelBlue/30 transition">2. Indol (Prueba de SIM)</a>
+                            <a href="#test-ecoli-rojo-metila" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelBlue/30 transition">3. Rojo de Metilo (RM)</a>
+                            <a href="#test-ecoli-voges" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelBlue/30 transition">4. Voges-Proskauer (VP)</a>
+                            <a href="#test-ecoli-citrato" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelBlue/30 transition">5. Citrato de Simmons</a>
+                            <a href="#test-ecoli-ureasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelBlue/30 transition">6. Ureasa</a>
+                            <a href="#test-ecoli-movilidad" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelBlue/30 transition">7. Movilidad</a>
+                        </div>
+                    </div>
+
+                    <!-- 3. Proteus -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-pastelYellow/60 hover:bg-pastelYellow text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            Proteus <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-proteus-ureasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelYellow/30 transition">1. Ureasa rápida</a>
+                            <a href="#test-proteus-fenilalanina" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelYellow/30 transition">2. Fenilalanina Desaminasa</a>
+                            <a href="#test-proteus-h2s" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelYellow/30 transition">3. Producción de H2S (TSI/SIM)</a>
+                            <a href="#test-proteus-movilidad" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelYellow/30 transition">4. Movilidad en enjambre</a>
+                            <a href="#test-proteus-citrato" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelYellow/30 transition">5. Citrato de Simmons</a>
+                            <a href="#test-proteus-indol" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelYellow/30 transition">6. Indol (Varía por especie)</a>
+                            <a href="#test-proteus-maltosa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelYellow/30 transition">7. Fermentación de Maltosa</a>
+                        </div>
+                    </div>
+
+                    <!-- 4. Enterobacter -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-pastelPurple/60 hover:bg-pastelPurple text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            Enterobacter <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-enterobacter-vp" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPurple/30 transition">1. Voges-Proskauer (VP Positivo)</a>
+                            <a href="#test-enterobacter-mr" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPurple/30 transition">2. Rojo de Metilo (RM Negativo)</a>
+                            <a href="#test-enterobacter-citrato" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPurple/30 transition">3. Citrato de Simmons</a>
+                            <a href="#test-enterobacter-lisina" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPurple/30 transition">4. Descarboxilasa de Lisina</a>
+                            <a href="#test-enterobacter-ornitina" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPurple/30 transition">5. Descarboxilasa de Ornitina</a>
+                            <a href="#test-enterobacter-movilidad" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPurple/30 transition">6. Movilidad</a>
+                            <a href="#test-enterobacter-ureasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelPurple/30 transition">7. Ureasa (Débil/Variable)</a>
+                        </div>
+                    </div>
+
+                    <!-- 5. Citrobacter -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-pastelGreen/60 hover:bg-pastelGreen text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            Citrobacter <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-citrobacter-citrato" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelGreen/30 transition">1. Citrato de Simmons (Positivo)</a>
+                            <a href="#test-citrobacter-h2s" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelGreen/30 transition">2. Producción de H2S (TSI)</a>
+                            <a href="#test-citrobacter-mr" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelGreen/30 transition">3. Rojo de Metilo (Positivo)</a>
+                            <a href="#test-citrobacter-vp" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelGreen/30 transition">4. Voges-Proskauer (Negativo)</a>
+                            <a href="#test-citrobacter-kcn" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelGreen/30 transition">5. Tolerancia al KCN</a>
+                            <a href="#test-citrobacter-ureasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelGreen/30 transition">6. Ureasa (Variable)</a>
+                            <a href="#test-citrobacter-ONPG" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelGreen/30 transition">7. ONPG (Beta-galactosidasa)</a>
+                        </div>
+                    </div>
+
+                    <!-- 6. Serratia -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-pastelOrange/60 hover:bg-pastelOrange text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            Serratia <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-serratia-gelatinasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelOrange/30 transition">1. Gelatinasa (Positiva)</a>
+                            <a href="#test-serratia-lipasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelOrange/30 transition">2. Lipasa / DNasa</a>
+                            <a href="#test-serratia-pigmento" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelOrange/30 transition">3. Producción de Prodigiosina</a>
+                            <a href="#test-serratia-vp" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelOrange/30 transition">4. Voges-Proskauer (Positivo)</a>
+                            <a href="#test-serratia-citrato" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelOrange/30 transition">5. Citrato de Simmons</a>
+                            <a href="#test-serratia-ornitina" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelOrange/30 transition">6. Ornitina descarboxilasa</a>
+                            <a href="#test-serratia-onpg" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelOrange/30 transition">7. ONPG</a>
+                        </div>
+                    </div>
+
+                    <!-- 7. Morganella -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-pastelTeal/60 hover:bg-pastelTeal text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            Morganella <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-morganella-indol" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelTeal/30 transition">1. Indol (Fuertemente Positivo)</a>
+                            <a href="#test-morganella-ureasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelTeal/30 transition">2. Ureasa (Positiva)</a>
+                            <a href="#test-morganella-fenilalanina" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelTeal/30 transition">3. Fenilalanina Desaminasa</a>
+                            <a href="#test-morganella-movilidad" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelTeal/30 transition">4. Movilidad</a>
+                            <a href="#test-morganella-tsi" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelTeal/30 transition">5. TSI (K/A sin H2S)</a>
+                            <a href="#test-morganella-citrato" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelTeal/30 transition">6. Citrato (Negativo)</a>
+                            <a href="#test-morganella-ornitina" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelTeal/30 transition">7. Ornitina descarboxilasa</a>
+                        </div>
+                    </div>
+
+                    <!-- 8. Providencia -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-pastelLavender/60 hover:bg-pastelLavender text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            Providencia <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-providencia-fenilalanina" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelLavender/30 transition">1. Fenilalanina Desaminasa</a>
+                            <a href="#test-providencia-citrato" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelLavender/30 transition">2. Citrato de Simmons</a>
+                            <a href="#test-providencia-indol" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelLavender/30 transition">3. Indol</a>
+                            <a href="#test-providencia-ureasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelLavender/30 transition">4. Ureasa</a>
+                            <a href="#test-providencia-mr" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelLavender/30 transition">5. Rojo de Metilo</a>
+                            <a href="#test-providencia-movilidad" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelLavender/30 transition">6. Movilidad</a>
+                            <a href="#test-providencia-malonato" class="block px-3 py-2 rounded-lg text-sm hover:bg-pastelLavender/30 transition">7. Malonato</a>
+                        </div>
+                    </div>
+
+                    <!-- 9. Staphylococcus -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-amber-100 hover:bg-amber-200 text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            Staphylococcus <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-staph-catalasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-amber-50 transition">1. Catalasa</a>
+                            <a href="#test-staph-coagulasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-amber-50 transition">2. Coagulasa</a>
+                            <a href="#test-staph-manitol" class="block px-3 py-2 rounded-lg text-sm hover:bg-amber-50 transition">3. Fermentación de Manitol</a>
+                            <a href="#test-staph-novobiocina" class="block px-3 py-2 rounded-lg text-sm hover:bg-amber-50 transition">4. Sensibilidad a Novobiocina</a>
+                            <a href="#test-staph-dnasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-amber-50 transition">5. DNasa</a>
+                            <a href="#test-staph-hemolisis" class="block px-3 py-2 rounded-lg text-sm hover:bg-amber-50 transition">6. Hemólisis en Agar Sangre</a>
+                            <a href="#test-staph-fosfatasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-amber-50 transition">7. Fosfatasa Alcalina</a>
+                        </div>
+                    </div>
+
+                    <!-- 10. Streptococcus -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-rose-100 hover:bg-rose-200 text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            Streptococcus <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-strep-catalasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-rose-50 transition">1. Catalasa</a>
+                            <a href="#test-strep-optochina" class="block px-3 py-2 rounded-lg text-sm hover:bg-rose-50 transition">2. Sensibilidad a Optochina</a>
+                            <a href="#test-strep-bacitracina" class="block px-3 py-2 rounded-lg text-sm hover:bg-rose-50 transition">3. Sensibilidad a Bacitracina</a>
+                            <a href="#test-strep-camp" class="block px-3 py-2 rounded-lg text-sm hover:bg-rose-50 transition">4. Prueba de CAMP</a>
+                            <a href="#test-strep-bili-esculina" class="block px-3 py-2 rounded-lg text-sm hover:bg-rose-50 transition">5. Hidrólisis de Bili-Esculina</a>
+                            <a href="#test-strep-tol-nac" class="block px-3 py-2 rounded-lg text-sm hover:bg-rose-50 transition">6. Tolerancia a NaCl 6.5%</a>
+                            <a href="#test-strep-pir" class="block px-3 py-2 rounded-lg text-sm hover:bg-rose-50 transition">7. Prueba de PIR</a>
+                        </div>
+                    </div>
+
+                    <!-- 11. Pseudomonas -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 rounded-lg bg-emerald-100 hover:bg-emerald-200 text-sm font-semibold transition flex items-center gap-1.5 text-darkText">
+                            Pseudomonas <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+                            <div class="text-xs font-bold text-gray-400 px-3 py-1 uppercase tracking-wider">Pruebas Bioquímicas</div>
+                            <a href="#test-pseudomonas-oxidasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-emerald-50 transition">1. Oxidasa</a>
+                            <a href="#test-pseudomonas-pigmento" class="block px-3 py-2 rounded-lg text-sm hover:bg-emerald-50 transition">2. Producción de Pigmentos (Pioverdina/Piocianina)</a>
+                            <a href="#test-pseudomonas-of" class="block px-3 py-2 rounded-lg text-sm hover:bg-emerald-50 transition">3. Prueba O/F (Oxidación/Fermentación)</a>
+                            <a href="#test-pseudomonas-movilidad" class="block px-3 py-2 rounded-lg text-sm hover:bg-emerald-50 transition">4. Movilidad</a>
+                            <a href="#test-pseudomonas-citrato" class="block px-3 py-2 rounded-lg text-sm hover:bg-emerald-50 transition">5. Citrato de Simmons</a>
+                            <a href="#test-pseudomonas-gelatinasa" class="block px-3 py-2 rounded-lg text-sm hover:bg-emerald-50 transition">6. Hidrólisis de Gelatina</a>
+                            <a href="#test-pseudomonas-crecimiento-42" class="block px-3 py-2 rounded-lg text-sm hover:bg-emerald-50 transition">7. Crecimiento a 42°C</a>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div id="mobile-menu-wrapper" class="flex xl:hidden">
+                    <button id="mobile-menu-btn" class="p-2.5 rounded-lg bg-gray-100 text-darkText hover:bg-gray-200 transition focus:outline-none">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-6 space-y-3 max-h-[80vh] overflow-y-auto">
+            <div class="text-xs font-bold text-gray-400 uppercase tracking-wider pt-2">Selecciona un Género Bacteriano</div>
+            
+            <!-- Mobile Accordion Item: Klebsiella -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-pastelPink/20">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-klebsiella')">
+                    <span>Klebsiella</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-klebsiella"></i>
+                </button>
+                <div id="mob-klebsiella" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-klebsiella-tsi" class="block p-2 rounded hover:bg-pastelPink/30" onclick="closeMobileMenu()">1. TSI</a>
+                    <a href="#test-klebsiella-sim" class="block p-2 rounded hover:bg-pastelPink/30" onclick="closeMobileMenu()">2. SIM</a>
+                    <a href="#test-klebsiella-citrato" class="block p-2 rounded hover:bg-pastelPink/30" onclick="closeMobileMenu()">3. Citrato</a>
+                    <a href="#test-klebsiella-ureasa" class="block p-2 rounded hover:bg-pastelPink/30" onclick="closeMobileMenu()">4. Ureasa</a>
+                    <a href="#test-klebsiella-mrvp" class="block p-2 rounded hover:bg-pastelPink/30" onclick="closeMobileMenu()">5. MR-VP</a>
+                    <a href="#test-klebsiella-lmo" class="block p-2 rounded hover:bg-pastelPink/30" onclick="closeMobileMenu()">6. LMO</a>
+                    <a href="#test-klebsiella-gelatinasa" class="block p-2 rounded hover:bg-pastelPink/30" onclick="closeMobileMenu()">7. Gelatinasa</a>
+                </div>
+            </div>
+
+            <!-- Mobile Accordion Item: E. coli -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-pastelBlue/20">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-ecoli')">
+                    <span>Escherichia coli</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-ecoli"></i>
+                </button>
+                <div id="mob-ecoli" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-ecoli-tsi" class="block p-2 rounded hover:bg-pastelBlue/30" onclick="closeMobileMenu()">1. TSI</a>
+                    <a href="#test-ecoli-indol" class="block p-2 rounded hover:bg-pastelBlue/30" onclick="closeMobileMenu()">2. Indol</a>
+                    <a href="#test-ecoli-rojo-metila" class="block p-2 rounded hover:bg-pastelBlue/30" onclick="closeMobileMenu()">3. Rojo de Metilo</a>
+                    <a href="#test-ecoli-voges" class="block p-2 rounded hover:bg-pastelBlue/30" onclick="closeMobileMenu()">4. Voges-Proskauer</a>
+                    <a href="#test-ecoli-citrato" class="block p-2 rounded hover:bg-pastelBlue/30" onclick="closeMobileMenu()">5. Citrato</a>
+                    <a href="#test-ecoli-ureasa" class="block p-2 rounded hover:bg-pastelBlue/30" onclick="closeMobileMenu()">6. Ureasa</a>
+                    <a href="#test-ecoli-movilidad" class="block p-2 rounded hover:bg-pastelBlue/30" onclick="closeMobileMenu()">7. Movilidad</a>
+                </div>
+            </div>
+
+            <!-- Mobile Accordion Item: Proteus -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-pastelYellow/20">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-proteus')">
+                    <span>Proteus</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-proteus"></i>
+                </button>
+                <div id="mob-proteus" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-proteus-ureasa" class="block p-2 rounded hover:bg-pastelYellow/30" onclick="closeMobileMenu()">1. Ureasa rápida</a>
+                    <a href="#test-proteus-fenilalanina" class="block p-2 rounded hover:bg-pastelYellow/30" onclick="closeMobileMenu()">2. Fenilalanina</a>
+                    <a href="#test-proteus-h2s" class="block p-2 rounded hover:bg-pastelYellow/30" onclick="closeMobileMenu()">3. H2S</a>
+                    <a href="#test-proteus-movilidad" class="block p-2 rounded hover:bg-pastelYellow/30" onclick="closeMobileMenu()">4. Movilidad</a>
+                    <a href="#test-proteus-citrato" class="block p-2 rounded hover:bg-pastelYellow/30" onclick="closeMobileMenu()">5. Citrato</a>
+                    <a href="#test-proteus-indol" class="block p-2 rounded hover:bg-pastelYellow/30" onclick="closeMobileMenu()">6. Indol</a>
+                    <a href="#test-proteus-maltosa" class="block p-2 rounded hover:bg-pastelYellow/30" onclick="closeMobileMenu()">7. Maltosa</a>
+                </div>
+            </div>
+
+            <!-- Mobile Accordion Item: Enterobacter -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-pastelPurple/20">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-enterobacter')">
+                    <span>Enterobacter</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-enterobacter"></i>
+                </button>
+                <div id="mob-enterobacter" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-enterobacter-vp" class="block p-2 rounded hover:bg-pastelPurple/30" onclick="closeMobileMenu()">1. VP</a>
+                    <a href="#test-enterobacter-mr" class="block p-2 rounded hover:bg-pastelPurple/30" onclick="closeMobileMenu()">2. Rojo de Metilo</a>
+                    <a href="#test-enterobacter-citrato" class="block p-2 rounded hover:bg-pastelPurple/30" onclick="closeMobileMenu()">3. Citrato</a>
+                    <a href="#test-enterobacter-lisina" class="block p-2 rounded hover:bg-pastelPurple/30" onclick="closeMobileMenu()">4. Lisina</a>
+                    <a href="#test-enterobacter-ornitina" class="block p-2 rounded hover:bg-pastelPurple/30" onclick="closeMobileMenu()">5. Ornitina</a>
+                    <a href="#test-enterobacter-movilidad" class="block p-2 rounded hover:bg-pastelPurple/30" onclick="closeMobileMenu()">6. Movilidad</a>
+                    <a href="#test-enterobacter-ureasa" class="block p-2 rounded hover:bg-pastelPurple/30" onclick="closeMobileMenu()">7. Ureasa</a>
+                </div>
+            </div>
+
+            <!-- Mobile Accordion Item: Citrobacter -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-pastelGreen/20">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-citrobacter')">
+                    <span>Citrobacter</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-citrobacter"></i>
+                </button>
+                <div id="mob-citrobacter" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-citrobacter-citrato" class="block p-2 rounded hover:bg-pastelGreen/30" onclick="closeMobileMenu()">1. Citrato</a>
+                    <a href="#test-citrobacter-h2s" class="block p-2 rounded hover:bg-pastelGreen/30" onclick="closeMobileMenu()">2. H2S</a>
+                    <a href="#test-citrobacter-mr" class="block p-2 rounded hover:bg-pastelGreen/30" onclick="closeMobileMenu()">3. Rojo de Metilo</a>
+                    <a href="#test-citrobacter-vp" class="block p-2 rounded hover:bg-pastelGreen/30" onclick="closeMobileMenu()">4. VP</a>
+                    <a href="#test-citrobacter-kcn" class="block p-2 rounded hover:bg-pastelGreen/30" onclick="closeMobileMenu()">5. KCN</a>
+                    <a href="#test-citrobacter-ureasa" class="block p-2 rounded hover:bg-pastelGreen/30" onclick="closeMobileMenu()">6. Ureasa</a>
+                    <a href="#test-citrobacter-ONPG" class="block p-2 rounded hover:bg-pastelGreen/30" onclick="closeMobileMenu()">7. ONPG</a>
+                </div>
+            </div>
+
+            <!-- Mobile Accordion Item: Serratia -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-pastelOrange/20">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-serratia')">
+                    <span>Serratia</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-serratia"></i>
+                </button>
+                <div id="mob-serratia" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-serratia-gelatinasa" class="block p-2 rounded hover:bg-pastelOrange/30" onclick="closeMobileMenu()">1. Gelatinasa</a>
+                    <a href="#test-serratia-lipasa" class="block p-2 rounded hover:bg-pastelOrange/30" onclick="closeMobileMenu()">2. Lipasa/DNasa</a>
+                    <a href="#test-serratia-pigmento" class="block p-2 rounded hover:bg-pastelOrange/30" onclick="closeMobileMenu()">3. Pigmento</a>
+                    <a href="#test-serratia-vp" class="block p-2 rounded hover:bg-pastelOrange/30" onclick="closeMobileMenu()">4. VP</a>
+                    <a href="#test-serratia-citrato" class="block p-2 rounded hover:bg-pastelOrange/30" onclick="closeMobileMenu()">5. Citrato</a>
+                    <a href="#test-serratia-ornitina" class="block p-2 rounded hover:bg-pastelOrange/30" onclick="closeMobileMenu()">6. Ornitina</a>
+                    <a href="#test-serratia-onpg" class="block p-2 rounded hover:bg-pastelOrange/30" onclick="closeMobileMenu()">7. ONPG</a>
+                </div>
+            </div>
+
+            <!-- Mobile Accordion Item: Morganella -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-pastelTeal/20">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-morganella')">
+                    <span>Morganella</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-morganella"></i>
+                </button>
+                <div id="mob-morganella" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-morganella-indol" class="block p-2 rounded hover:bg-pastelTeal/30" onclick="closeMobileMenu()">1. Indol</a>
+                    <a href="#test-morganella-ureasa" class="block p-2 rounded hover:bg-pastelTeal/30" onclick="closeMobileMenu()">2. Ureasa</a>
+                    <a href="#test-morganella-fenilalanina" class="block p-2 rounded hover:bg-pastelTeal/30" onclick="closeMobileMenu()">3. Fenilalanina</a>
+                    <a href="#test-morganella-movilidad" class="block p-2 rounded hover:bg-pastelTeal/30" onclick="closeMobileMenu()">4. Movilidad</a>
+                    <a href="#test-morganella-tsi" class="block p-2 rounded hover:bg-pastelTeal/30" onclick="closeMobileMenu()">5. TSI</a>
+                    <a href="#test-morganella-citrato" class="block p-2 rounded hover:bg-pastelTeal/30" onclick="closeMobileMenu()">6. Citrato</a>
+                    <a href="#test-morganella-ornitina" class="block p-2 rounded hover:bg-pastelTeal/30" onclick="closeMobileMenu()">7. Ornitina</a>
+                </div>
+            </div>
+
+            <!-- Mobile Accordion Item: Providencia -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-pastelLavender/25">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-providencia')">
+                    <span>Providencia</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-providencia"></i>
+                </button>
+                <div id="mob-providencia" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-providencia-fenilalanina" class="block p-2 rounded hover:bg-pastelLavender/30" onclick="closeMobileMenu()">1. Fenilalanina</a>
+                    <a href="#test-providencia-citrato" class="block p-2 rounded hover:bg-pastelLavender/30" onclick="closeMobileMenu()">2. Citrato</a>
+                    <a href="#test-providencia-indol" class="block p-2 rounded hover:bg-pastelLavender/30" onclick="closeMobileMenu()">3. Indol</a>
+                    <a href="#test-providencia-ureasa" class="block p-2 rounded hover:bg-pastelLavender/30" onclick="closeMobileMenu()">4. Ureasa</a>
+                    <a href="#test-providencia-mr" class="block p-2 rounded hover:bg-pastelLavender/30" onclick="closeMobileMenu()">5. Rojo de Metilo</a>
+                    <a href="#test-providencia-movilidad" class="block p-2 rounded hover:bg-pastelLavender/30" onclick="closeMobileMenu()">6. Movilidad</a>
+                    <a href="#test-providencia-malonato" class="block p-2 rounded hover:bg-pastelLavender/30" onclick="closeMobileMenu()">7. Malonato</a>
+                </div>
+            </div>
+
+            <!-- Mobile Accordion Item: Staphylococcus -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-amber-50">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-staphylococcus')">
+                    <span>Staphylococcus</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-staphylococcus"></i>
+                </button>
+                <div id="mob-staphylococcus" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-staph-catalasa" class="block p-2 rounded hover:bg-amber-100" onclick="closeMobileMenu()">1. Catalasa</a>
+                    <a href="#test-staph-coagulasa" class="block p-2 rounded hover:bg-amber-100" onclick="closeMobileMenu()">2. Coagulasa</a>
+                    <a href="#test-staph-manitol" class="block p-2 rounded hover:bg-amber-100" onclick="closeMobileMenu()">3. Manitol</a>
+                    <a href="#test-staph-novobiocina" class="block p-2 rounded hover:bg-amber-100" onclick="closeMobileMenu()">4. Novobiocina</a>
+                    <a href="#test-staph-dnasa" class="block p-2 rounded hover:bg-amber-100" onclick="closeMobileMenu()">5. DNasa</a>
+                    <a href="#test-staph-hemolisis" class="block p-2 rounded hover:bg-amber-100" onclick="closeMobileMenu()">6. Hemólisis</a>
+                    <a href="#test-staph-fosfatasa" class="block p-2 rounded hover:bg-amber-100" onclick="closeMobileMenu()">7. Fosfatasa</a>
+                </div>
+            </div>
+
+            <!-- Mobile Accordion Item: Streptococcus -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-rose-50">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-streptococcus')">
+                    <span>Streptococcus</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-streptococcus"></i>
+                </button>
+                <div id="mob-streptococcus" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-strep-catalasa" class="block p-2 rounded hover:bg-rose-100" onclick="closeMobileMenu()">1. Catalasa</a>
+                    <a href="#test-strep-optochina" class="block p-2 rounded hover:bg-rose-100" onclick="closeMobileMenu()">2. Optochina</a>
+                    <a href="#test-strep-bacitracina" class="block p-2 rounded hover:bg-rose-100" onclick="closeMobileMenu()">3. Bacitracina</a>
+                    <a href="#test-strep-camp" class="block p-2 rounded hover:bg-rose-100" onclick="closeMobileMenu()">4. CAMP</a>
+                    <a href="#test-strep-bili-esculina" class="block p-2 rounded hover:bg-rose-100" onclick="closeMobileMenu()">5. Bili-Esculina</a>
+                    <a href="#test-strep-tol-nac" class="block p-2 rounded hover:bg-rose-100" onclick="closeMobileMenu()">6. NaCl 6.5%</a>
+                    <a href="#test-strep-pir" class="block p-2 rounded hover:bg-rose-100" onclick="closeMobileMenu()">7. PIR</a>
+                </div>
+            </div>
+
+            <!-- Mobile Accordion Item: Pseudomonas -->
+            <div class="border border-gray-100 rounded-xl overflow-hidden bg-emerald-50">
+                <button class="w-full flex justify-between items-center p-3 font-semibold text-sm text-left" onclick="toggleMobileAccordion('mob-pseudomonas')">
+                    <span>Pseudomonas</span>
+                    <i class="fa-solid fa-chevron-down transition-transform" id="icon-mob-pseudomonas"></i>
+                </button>
+                <div id="mob-pseudomonas" class="hidden bg-white p-2 space-y-1 text-sm border-t border-gray-100">
+                    <a href="#test-pseudomonas-oxidasa" class="block p-2 rounded hover:bg-emerald-100" onclick="closeMobileMenu()">1. Oxidasa</a>
+                    <a href="#test-pseudomonas-pigmento" class="block p-2 rounded hover:bg-emerald-100" onclick="closeMobileMenu()">2. Pigmentos</a>
+                    <a href="#test-pseudomonas-of" class="block p-2 rounded hover:bg-emerald-100" onclick="closeMobileMenu()">3. O/F</a>
+                    <a href="#test-pseudomonas-movilidad" class="block p-2 rounded hover:bg-emerald-100" onclick="closeMobileMenu()">4. Movilidad</a>
+                    <a href="#test-pseudomonas-citrato" class="block p-2 rounded hover:bg-emerald-100" onclick="closeMobileMenu()">5. Citrato</a>
+                    <a href="#test-pseudomonas-gelatinasa" class="block p-2 rounded hover:bg-emerald-100" onclick="closeMobileMenu()">6. Gelatinasa</a>
+                    <a href="#test-pseudomonas-crecimiento-42" class="block p-2 rounded hover:bg-emerald-100" onclick="closeMobileMenu()">7. 42°C</a>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+        <div class="bg-gradient-to-r from-pastelPink/30 via-pastelBlue/30 to-pastelPurple/30 rounded-3xl p-8 sm:p-12 shadow-sm border border-gray-100">
+            <span id="hero-description" class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-white text-darkText shadow-sm mb-4">
+                <i class="fa-solid fa-graduation-cap mr-1.5 text-indigo-500"></i> Diseñado para proporcionar información útil acerca de pruebas bioquímicas para la identificación bacteriana
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-darkText mb-4">
+                Identificación Bioquímica en <span class="text-indigo-600">Microterio</span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-base sm:text-lg text-gray-700 mb-6">
+                Plataforma interactiva especializada en la diferenciación e identificación de géneros bacterianos gramnegativos y grampositivos de importancia clínica. Consulta 11 grupos bacterianos completos.
+            </p>
+            
+            <!-- Quick Search Bar -->
+            <div class="max-w-md mx-auto relative mb-6">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="search" id="bacteria-search" aria-label="Buscar género o género y especie" placeholder="Buscar género o especie (ej. Klebsiella pneumoniae)..." class="w-full pl-10 pr-28 py-3 bg-white border border-gray-200 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-indigo-400 shadow-sm transition">
+                 <button type="button" id="search-btn" class="absolute right-1.5 top-1.5 bottom-1.5 px-4 rounded-lg bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-300">Buscar</button>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#info-bacterias" class="px-6 py-3 rounded-xl bg-darkText text-white font-medium hover:bg-gray-800 transition shadow-md text-sm">
+                    Ver Información General <i class="fa-solid fa-arrow-down ml-1.5"></i>
+                </a>
+            </div>
+            <div class="mt-4">
+                <a href="#ponte-a-prueba" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition shadow-md">
+                    <i class="fa-solid fa-clipboard-question"></i> Ponte a prueba
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="home-view" class="page-view active max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <article class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <h2 class="text-xl font-bold mb-3"><i class="fa-solid fa-book-open text-indigo-600 mr-2"></i>Instructivo de uso</h2>
+          <ol class="list-decimal pl-5 space-y-2 text-sm text-gray-700">
+            <li>Escribe el género bacteriano o el nombre del género y la especie en el buscador.</li>
+            <li>Presiona <strong>Buscar</strong> o la tecla Enter para ver los resultados.</li>
+            <li>También puedes seleccionar uno de los géneros de las tarjetas inferiores.</li>
+            <li>Usa el botón <strong>Volver al inicio</strong> para regresar a esta pantalla.</li>
+          </ol>
+          <p class="text-xs text-gray-500 mt-4">La búsqueda consulta los géneros y especies mencionados en el contenido disponible de esta página.</p>
+        </article>
+        <article class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <h2 class="text-xl font-bold mb-3"><i class="fa-solid fa-microscope text-indigo-600 mr-2"></i>Características generales</h2>
+          <p class="text-sm text-gray-700 leading-relaxed">La identificación bioquímica bacteriana compara características metabólicas y enzimáticas mediante pruebas de laboratorio. Los perfiles pueden variar entre especies y cepas; los resultados deben interpretarse junto con la morfología, la tinción, el origen de la muestra y los procedimientos validados del laboratorio.</p>
+          <p class="text-sm text-gray-700 leading-relaxed mt-3">Microterio reúne información educativa sobre 11 grupos bacterianos, con pruebas, procedimientos y resultados orientativos. No sustituye los protocolos institucionales ni la confirmación por métodos validados.</p>
+        </article>
+      </div>
+      <h2 class="text-2xl font-bold mb-4">Explorar géneros bacterianos</h2>
+      <div id="genre-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+    <section id="results-view" class="page-view max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div><p class="text-xs uppercase tracking-wider text-indigo-600 font-bold">Resultados de búsqueda</p><h2 id="results-title" class="text-2xl sm:text-3xl font-bold"></h2></div>
+        <button type="button" class="back-home px-4 py-2 rounded-xl bg-gray-900 text-white text-sm font-semibold">Volver al inicio</button>
+      </div>
+      <p id="results-message" class="text-sm text-gray-600 mb-5"></p>
+      <div id="results-content" class="space-y-10"></div>
+    </section>
+
+    <!-- Cuestionarios de autoevaluación -->
+    <section id="ponte-a-prueba" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-indigo-100">
+        <div class="text-center mb-7">
+          <span class="inline-flex items-center gap-2 text-indigo-600 font-bold text-sm uppercase tracking-wider"><i class="fa-solid fa-graduation-cap"></i> Autoevaluación</span>
+          <h2 class="text-3xl font-extrabold text-darkText mt-2">Ponte a prueba</h2>
+          <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Selecciona un género bacteriano y una versión de examen. Cada cuestionario contiene preguntas de opción múltiple; al finalizar podrás revisar tu puntuación y las respuestas correctas.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto mb-6">
+          <label class="text-sm font-semibold text-gray-700">Género bacteriano
+            <select id="quiz-genre" class="mt-1 w-full rounded-xl border border-gray-300 p-3 bg-white"><option value="">Selecciona un género</option></select>
+          </label>
+          <label class="text-sm font-semibold text-gray-700">Versión del examen
+            <select id="quiz-version" class="mt-1 w-full rounded-xl border border-gray-300 p-3 bg-white"><option value="1">Versión 1</option><option value="2">Versión 2</option><option value="3">Versión 3</option></select>
+          </label>
+        </div>
+        <div class="text-center mb-6"><button id="quiz-start" type="button" class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700">Comenzar examen</button></div>
+        <div id="quiz-area" class="max-w-4xl mx-auto" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- Main Content Area: Biochemical Tests Catalog -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 flex-grow">
+
+        <!-- ==================== 1. KLEBSIELLA ==================== -->
+        <div class="space-y-6">
+            <div class="border-l-4 border-pink-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-pastelPink flex items-center justify-center text-sm font-bold">1</span>
+                    Klebsiella (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Bacilos gramnegativos, inmóviles, capsulados y fermentadores vigorosos de lactosa.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: TSI -->
+                <div id="test-klebsiella-tsi" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPink text-darkText">TSI (Triple Sugar Iron)</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. TSI (Triple Sugar Iron)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular por picadura en profundidad y estría en la superficie del medio inclinado con asa recta. Incubar a 35-37°C por 18-24 horas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Pico alcalino / Fondo ácido (K/A) o Fondo ácido con gas (A/A con gas). Sin producción de $H_2S$ (sin precipitado negro).
+                    </div>
+                </div>
+
+                <!-- Test 2: SIM -->
+                <div id="test-klebsiella-sim" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPink text-darkText">SIM (Sulfhídrico, Indol, Movilidad)</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. SIM (Sulfhídrico, Indol, Movilidad)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular por picadura central profunda. Incubar a 37°C por 24h. Agregar reactivo de Kovac's para evaluar indol.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Movilidad: Negativa (crecimiento confinado a la línea de picadura). $H_2S$: Negativo. Indol: Variable según especie (generalmente negativo en *K. pneumoniae*, positivo en *K. oxytoca*).
+                    </div>
+                </div>
+
+                <!-- Test 3: Citrato de Simmons -->
+                <div id="test-klebsiella-citrato" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPink text-darkText">Citrato de Simmons</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Citrato de Simmons</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular el pico de flauta con asa recta en estría e incubar a 37°C por 24-48h. Dejar un poco abierto el tubo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. El medio vira de verde a un color azul intenso debido a la alcalinización por utilización de citrato sódico.
+                    </div>
+                </div>
+
+                <!-- Test 4: Ureasa -->
+                <div id="test-klebsiella-ureasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPink text-darkText">Ureasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Ureasa (Caldo Urea de Christensen)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular fuertemente el medio con la colonia problema. Incubar a 37°C y revisar a las 4h y 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo retardado o positivo fuerte (*K. pneumoniae* produce ureasa débil a moderada, virando el medio a rojo/fucsia).
+                    </div>
+                </div>
+
+                <!-- Test 5: MR-VP -->
+                <div id="test-klebsiella-mrvp" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPink text-darkText">MR-VP</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. MR-VP (Rojo de Metilo / Voges-Proskauer)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Cultivar en caldo glucosado fosfatado 48h. Dividir el cultivo y añadir reactivos de VP (KOH y alfa-naftol) y Rojo de Metilo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> RM: Negativo (amarillo). VP: Positivo fuertemente (anillo rojo/rosado por producción de acetoína).
+                    </div>
+                </div>
+
+                <!-- Test 6: LMO -->
+                <div id="test-klebsiella-lmo" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPink text-darkText">LMO</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. LMO (Lisina, Ornitina, Motilidad)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular mediante doble picadura en el medio semisólido de Moeller modificado. Incubar a 37°C por 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Lisina Descarboxilasa: Positivo (púrpura). Ornitina Descarboxilasa: Negativo (amarillo). Motilidad: Negativa.
+                    </div>
+                </div>
+
+                <!-- Test 7: Gelatinasa -->
+                <div id="test-klebsiella-gelatinasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPink text-darkText">Gelatinasa</span>
+                        <h3 class="text-lg font-bold text-darkTest mt-3 mb-2">7. Hidrólisis de Gelatina</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular gelatina nutritiva en tubo por picadura profunda. Incubar a 37°C y luego refrigerar a 4°C por 30 min antes de leer.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Negativo. El medio permanece solidificado tras la refrigeración (ausencia de enzimas gelatinasas).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 2. ESCHERICHIA COLI ==================== -->
+        <div class="space-y-6">
+            <div class="border-l-4 border-green-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-pastelBlue flex items-center justify-center text-sm font-bold">2</span>
+                    Escherichia coli (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Bacilo gramnegativo anaerobio facultativo, fermentador rápido de lactosa, indol positivo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: TSI -->
+                <div id="test-ecoli-tsi" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelBlue text-darkText">TSI</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. TSI (Triple Sugar Iron)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular pico y fondo con asa recta. Incubar a 37°C por 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Ácido / Ácido (A/A) con producción de gas (ruptura del medio) y sin producción de $H_2S$ (sin ennegrecimiento).
+                    </div>
+                </div>
+
+                <!-- Test 2: Indol -->
+                <div id="test-ecoli-indol" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelBlue text-darkText">Indol</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. Producción de Indol (SIM / Caldo Triptona)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Tras incubación, añadir 5 gotas de reactivo de Kovac's sobre el caldo o tubo SIM.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Formación inmediata de un anillo de color rojo brillante en la superficie superior.
+                    </div>
+                </div>
+
+                <!-- Test 3: Rojo de Metilo -->
+                <div id="test-ecoli-rojo-metila" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelBlue text-darkText">Rojo de Metilo</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Rojo de Metilo (RM)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Añadir 5 gotas de indicador rojo de metilo a un cultivo en caldo glucosado de 48h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. El medio vira persistentemente a color rojo brillante debido a la vía de ácidos mixtos.
+                    </div>
+                </div>
+
+                <!-- Test 4: Voges-Proskauer -->
+                <div id="test-ecoli-voges" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelBlue text-darkText">Voges-Proskauer</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Voges-Proskauer (VP)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Agregar alfa-naftol y KOH con creatina al caldo cultivado. Agitar y reposar 15 min.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Negativo. Ausencia de coloración roja (no produce acetoína).
+                    </div>
+                </div>
+
+                <!-- Test 5: Citrato -->
+                <div id="test-ecoli-citrato" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelBlue text-darkText">Citrato</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. Citrato de Simmons</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular el pico de flauta con asa recta en estría e incubar a 37°C por 24-48h. Dejar un poco abierto el tubo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Negativo. El medio permanece verde (la mayoría de cepas de *E. coli* no utilizan citrato como única fuente de carbono).
+                    </div>
+                </div>
+
+                <!-- Test 6: Ureasa -->
+                <div id="test-ecoli-ureasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelBlue text-darkText">Ureasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. Ureasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular caldo o agar urea de Christensen e incubar 24h a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Negativo. El medio conserva su color amarillo-naranja o salmón original.
+                    </div>
+                </div>
+
+                <!-- Test 7: Movilidad -->
+                <div id="test-ecoli-movilidad" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelBlue text-darkText">Movilidad</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">7. Prueba de Movilidad</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular por picadura simple en medio semisólido (SIM o agar motilidad) y observar turbidez.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Crecimiento difuso que se extiende más allá de la línea original de inoculación, turbidez generalizada.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 3. PROTEUS ==================== -->
+        <div class="space-y-6">
+            <div class="border-l-4 border-yellow-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-pastelYellow flex items-center justify-center text-sm font-bold">3</span>
+                    Proteus (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Bacilos gramnegativos móviles caracterizados por fenómeno de enjambre, ureasa muy rápida y producción de $H_2S$.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: Ureasa rápida -->
+                <div id="test-proteus-ureasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelYellow text-darkText">Ureasa rápida</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. Ureasa Rápida</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular caldo urea o agar urea de Christensen; observar cambios de color a los 10-60 minutos.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo fuerte e inmediato. Viraje rápido del medio a color fucsia brillante en pocos minutos.
+                    </div>
+                </div>
+
+                <!-- Test 2: Fenilalanina -->
+                <div id="test-proteus-fenilalanina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelYellow text-darkText">Fenilalanina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. Fenilalanina Desaminasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular el talud con cultivo, incubar 24h y añadir unas gotas de cloruro férrico al 10%.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Aparición inmediata de un color verde oscuro en el talud del agar.
+                    </div>
+                </div>
+
+                <!-- Test 3: H2S -->
+                <div id="test-proteus-h2s" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelYellow text-darkText">H2S</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Producción de $H_2S$ (TSI / SIM)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio TSI o SIM por picadura y estría. Incubar a 37°C por 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo (*Proteus mirabilis* y *P. vulgaris* producen abundante precipitado negro de sulfuro de hierro).
+                    </div>
+                </div>
+
+                <!-- Test 4: Movilidad en enjambre -->
+                <div id="test-proteus-movilidad" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelYellow text-darkText">Movilidad</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Movilidad en Enjambre (Swarming)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Sembrar en placa de agar sangre o agar nutritivo con bajo porcentaje de agar (1.5% o menos) e incubar 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Oleadas concéntricas características de crecimiento en película sobre toda la superficie de la placa.
+                    </div>
+                </div>
+
+                <!-- Test 5: Citrato -->
+                <div id="test-proteus-citrato" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelYellow text-darkText">Citrato</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. Citrato de Simmons</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular el pico de flauta con asa recta en estría e incubar a 37°C por 24-48h. Dejar un poco abierto el tubo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Variable (*Proteus mirabilis* suele ser positivo, mientras que algunas cepas de *P. vulgaris* pueden ser negativas).
+                    </div>
+                </div>
+
+                <!-- Test 6: Indol -->
+                <div id="test-proteus-indol" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelYellow text-darkText">Indol</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. Prueba de Indol (Diferencial de especie)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio SIM o caldo triptona, incubar y agregar reactivo de Kovac's.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Clave para diferenciación: *Proteus mirabilis* es Indol **Negativo**, mientras que *Proteus vulgaris* es Indol **Positivo**.
+                    </div>
+                </div>
+
+                <!-- Test 7: Maltosa -->
+                <div id="test-proteus-maltosa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelYellow text-darkText">Maltosa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">7. Fermentación de Maltosa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio de carbohidratos con maltosa y rojo de fenol como indicador.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Variable: *Proteus vulgaris* fermenta maltosa (positivo, viraje a amarillo), en tanto que *P. mirabilis* no la fermenta (negativo).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 4. ENTEROBACTER ==================== -->
+        <div class="space-y-6">
+            <div class="border-l-4 border-purple-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-pastelPurple flex items-center justify-center text-sm font-bold">4</span>
+                    Enterobacter (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Bacilos gramnegativos móviles, fermentadores de lactosa, Voges-Proskauer positivo y Rojo de Metilo negativo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: VP -->
+                <div id="test-enterobacter-vp" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPurple text-darkText">Voges-Proskauer</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. Voges-Proskauer (VP)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular caldo Clark y Lubs, incubar 48h y agregar alfa-naftol más KOH.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Fuertemente Positivo. Aparición de color rojo cereza en la superficie (producción de acetoína).
+                    </div>
+                </div>
+
+                <!-- Test 2: Rojo de Metilo -->
+                <div id="test-enterobacter-mr" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPurple text-darkText">Rojo de Metilo</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. Rojo de Metilo (RM)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Agregar indicador rojo de metilo al cultivo en caldo glucosado fosfatado.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Negativo. El medio vira a amarillo/naranja por la vía de fermentación diacetílica butanediólica (no ácidos mixtos).
+                    </div>
+                </div>
+
+                <!-- Test 3: Citrato -->
+                <div id="test-enterobacter-citrato" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPurple text-darkText">Citrato</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Citrato de Simmons</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular el pico de flauta con asa recta en estría e incubar a 37°C por 24-48h. Dejar un poco abierto el tubo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. El medio vira de verde a azul intenso.
+                    </div>
+                </div>
+
+                <!-- Test 4: Lisina -->
+                <div id="test-enterobacter-lisina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPurple text-darkText">Lisina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Descarboxilasa de Lisina</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio de Moeller con lisina cubierto con aceite mineral. Incubar 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. El medio vira de amarillo a púrpura (alcalinización por cada enzima descarboxilasa).
+                    </div>
+                </div>
+
+                <!-- Test 5: Ornitina -->
+                <div id="test-enterobacter-ornitina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPurple text-darkText">Ornitina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. Descarboxilasa de Ornitina</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio de Moeller con ornitina y sello de aceite. Incubar a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo (*Enterobacter cloacae* y *E. aerogenes* suelen decarboxilar ornitina, virando a púrpura).
+                    </div>
+                </div>
+
+                <!-- Test 6: Movilidad -->
+                <div id="test-enterobacter-movilidad" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPurple text-darkText">Movilidad</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. Prueba de Movilidad</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular por picadura central en medio semisólido e incubar a 37°C por 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Turbidez generalizada difusa que se propaga desde la línea de inoculación.
+                    </div>
+                </div>
+
+                <!-- Test 7: Ureasa -->
+                <div id="test-enterobacter-ureasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelPurple text-darkText">Ureasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">7. Ureasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular agar o caldo urea de Christensen e incubar 24-48 horas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Generalmente Negativo o débilmente positivo tardío según la especie (*E. cloacae* puede mostrar ureasa débil).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 5. CITROBACTER ==================== -->
+        <div class="space-y-6">
+            <div class="border-l-4 border-emerald-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-pastelGreen flex items-center justify-center text-sm font-bold">5</span>
+                    Citrobacter (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Bacilos gramnegativos capaces de utilizar citrato, producir $H_2S$ (confundibles con Salmonella) y Rojo de Metilo positivo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: Citrato -->
+                <div id="test-citrobacter-citrato" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelGreen text-darkText">Citrato</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. Citrato de Simmons</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular el pico de flauta con asa recta en estría e incubar a 37°C por 24-48h. Dejar un poco abierto el tubo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. El medio vira claramente de verde a azul brillante.
+                    </div>
+                </div>
+
+                <!-- Test 2: H2S -->
+                <div id="test-citrobacter-h2s" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelGreen text-darkText">H2S</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. Producción de $H_2S$ (TSI)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular por picadura y estría en tubo TSI. Incubar a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo frecuente (*Citrobacter freundii* produce precipitado negro en el fondo del TSI).
+                    </div>
+                </div>
+
+                <!-- Test 3: Rojo de Metilo -->
+                <div id="test-citrobacter-mr" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelGreen text-darkText">Rojo de Metilo</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Rojo de Metilo (RM)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Añadir gotas de rojo de metilo a cultivo de 48h en caldo glucosado.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Color rojo persistente (vía de ácidos mixtos activa).
+                    </div>
+                </div>
+
+                <!-- Test 4: VP -->
+                <div id="test-citrobacter-vp" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelGreen text-darkText">Voges-Proskauer</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Voges-Proskauer (VP)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Añadir reactivos alfa-naftol y KOH a cultivo en caldo Clark y Lubs.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Negativo. Ausencia de coloración roja.
+                    </div>
+                </div>
+
+                <!-- Test 5: KCN -->
+                <div id="test-citrobacter-kcn" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelGreen text-darkText">KCN</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. Tolerancia al Cianuro de Potasio (KCN)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular caldo KCN e incubar a 37°C por 24-48 horas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo (*Citrobacter* tolera y crece en presencia de KCN, evidenciado por turbidez en el caldo).
+                    </div>
+                </div>
+
+                <!-- Test 6: Ureasa -->
+                <div id="test-citrobacter-ureasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelGreen text-darkText">Ureasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. Ureasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio de urea e incubar a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Variable (*C. freundii* suele ser ureasa débil o positiva tardía; *C. koseri* es típicamente negativo).
+                    </div>
+                </div>
+
+                <!-- Test 7: ONPG -->
+                <div id="test-citrobacter-ONPG" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelGreen text-darkText">ONPG</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">7. ONPG (Beta-galactosidasa)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Suspender cultivo en solución salina con disco ONPG e incubar a 37°C hasta 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Viraje del líquido a color amarillo por liberación de ortonitrofenol (lactosa lenta).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 6. SERRATIA ==================== -->
+        <div class="space-y-6">
+            <div class="border-l-4 border-orange-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-pastelOrange flex items-center justify-center text-sm font-bold">6</span>
+                    Serratia (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Bacilos gramnegativos productores de enzimas extracelulares potentes (gelatinasa, lipasa, DNasa) y a menudo pigmento rojo (prodigiosina).</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: Gelatinasa -->
+                <div id="test-serratia-gelatinasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelOrange text-darkText">Gelatinasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. Hidrólisis de Gelatina</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular gelatina nutritiva por picadura profunda, incubar a 37°C y luego refrigerar.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo fuerte. El medio permanece líquido tras la refrigeración debido a la licuefacción enzimática de la gelatina.
+                    </div>
+                </div>
+
+                <!-- Test 2: Lipasa / DNasa -->
+                <div id="test-serratia-lipasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelOrange text-darkText">Lipasa / DNasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. Producción de DNasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Sembrar en agar DNasa en estría, incubar 24h y revelar con ácido clorhídrico 1N.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Halo transparente alrededor del crecimiento bacteriano (hidrólisis del ADN).
+                    </div>
+                </div>
+
+                <!-- Test 3: Pigmento -->
+                <div id="test-serratia-pigmento" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelOrange text-darkText">Pigmento</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Producción de Prodigiosina</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular agar nutritivo y mantener a temperatura ambiente (20-25°C) por 48 horas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo en muchas cepas de *Serratia marcescens* (aparición de un característico pigmento rojo/rosado intenso).
+                    </div>
+                </div>
+
+                <!-- Test 4: VP -->
+                <div id="test-serratia-vp" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelOrange text-darkText">Voges-Proskauer</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Voges-Proskauer (VP)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular caldo glucosado, incubar 48h y agregar reactivos alfa-naftol/KOH.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Anillo o solución rojo cereza.
+                    </div>
+                </div>
+
+                <!-- Test 5: Citrato -->
+                <div id="test-serratia-citrato" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelOrange text-darkText">Citrato</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. Citrato de Simmons</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular el pico de flauta con asa recta en estría e incubar a 37°C por 24-48h. Dejar un poco abierto el tubo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. El medio vira a color azul intenso.
+                    </div>
+                </div>
+
+                <!-- Test 6: Ornitina -->
+                <div id="test-serratia-ornitina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelOrange text-darkText">Ornitina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. Ornitina Descarboxilasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio Moeller ornitina con sello de aceite mineral e incubar 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Viraje del medio a color púrpura.
+                    </div>
+                </div>
+
+                <!-- Test 7: ONPG -->
+                <div id="test-serratia-onpg" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelOrange text-darkText">ONPG</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">7. ONPG (Beta-galactosidasa)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Suspender inóculo en solución con disco ONPG e incubar a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Viraje a color amarillo (fermentación lenta de lactosa).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 7. MOGANELLA ==================== -->
+        <div class="space-y-6">
+            <div class="border-l-4 border-teal-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-pastelTeal flex items-center justify-center text-sm font-bold">7</span>
+                    Morganella (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Bacilos gramnegativos móviles, productores de indol intenso, ureasa positiva y fenilalanina desaminasa positiva.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: Indol -->
+                <div id="test-morganella-indol" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelTeal text-darkText">Indol</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. Producción de Indol</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio SIM, incubar a 37°C y añadir reactivo de Kovac's.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Fuertemente Positivo. Anillo rojo oscuro instantáneo y denso en la superficie.
+                    </div>
+                </div>
+
+                <!-- Test 2: Ureasa -->
+                <div id="test-morganella-ureasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelTeal text-darkText">Ureasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. Ureasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular agar o caldo urea e incubar a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo (*Morganella morganii* hidroliza urea eficientemente, virando el medio a fucsia).
+                    </div>
+                </div>
+
+                <!-- Test 3: Fenilalanina -->
+                <div id="test-morganella-fenilalanina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelTeal text-darkText">Fenilalanina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Fenilalanina Desaminasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular agar fenilalanina, incubar 24h y agregar cloruro férrico.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Aparición de color verde en el talud.
+                    </div>
+                </div>
+
+                <!-- Test 4: Movilidad -->
+                <div id="test-morganella-movilidad" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelTeal text-darkText">Movilidad</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Prueba de Movilidad</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio semisólido por picadura central e incubar a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Crecimiento difuso en todo el tubo.
+                    </div>
+                </div>
+
+                <!-- Test 5: TSI -->
+                <div id="test-morganella-tsi" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelTeal text-darkText">TSI</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. TSI (Triple Sugar Iron)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular pico y fondo en medio TSI, incubar 24h a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Alcalino / Ácido (K/A) sin producción de gas y sin precipitado negro de $H_2S$.
+                    </div>
+                </div>
+
+                <!-- Test 6: Citrato -->
+                <div id="test-morganella-citrato" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelTeal text-darkText">Citrato</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. Citrato de Simmons</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular el pico de flauta con asa recta en estría e incubar a 37°C por 24-48h. Dejar un poco abierto el tubo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Negativo. El medio permanece de color verde (no utiliza citrato).
+                    </div>
+                </div>
+
+                <!-- Test 7: Ornitina -->
+                <div id="test-morganella-ornitina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelTeal text-darkText">Ornitina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">7. Ornitina Descarboxilasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio Moeller ornitina con sello de aceite e incubar 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Viraje del medio a color púrpura.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 8. PROVIDENCIA ==================== -->
+        <div class="space-y-6 bacterial-section" data-name="providencia">
+            <div class="border-l-4 border-indigo-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-pastelLavender flex items-center justify-center text-sm font-bold">8</span>
+                    Providencia (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Bacilos gramnegativos móviles, fenilalanina desaminasa positivos y citrato positivos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: Fenilalanina -->
+                <div id="test-providencia-fenilalanina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelLavender text-darkText">Fenilalanina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. Fenilalanina Desaminasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular talud de fenilalanina, incubar 24h y añadir cloruro férrico.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Formación de color verde oscuro instantáneo en el talud.
+                    </div>
+                </div>
+
+                <!-- Test 2: Citrato -->
+                <div id="test-providencia-citrato" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelLavender text-darkText">Citrato</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. Citrato de Simmons</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular el pico de flauta con asa recta en estría e incubar a 37°C por 24-48h. Dejar un poco abierto el tubo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Viraje del medio de verde a azul intenso.
+                    </div>
+                </div>
+
+                <!-- Test 3: Indol -->
+                <div id="test-providencia-indol" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelLavender text-darkText">Indol</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Producción de Indol</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular caldo triptona o SIM, incubar 24h y agregar reactivo de Kovac's.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Variable según especie (*Providencia rettgeri* es positivo; *P. stuartii* puede ser variable).
+                    </div>
+                </div>
+
+                <!-- Test 4: Ureasa -->
+                <div id="test-providencia-ureasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelLavender text-darkText">Ureasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Ureasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular agar urea de Christensen e incubar a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Variable o débil (*P. rettgeri* suele ser ureasa positivo; *P. stuartii* es negativo).
+                    </div>
+                </div>
+
+                <!-- Test 5: Rojo de Metilo -->
+                <div id="test-providencia-mr" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelLavender text-darkText">Rojo de Metilo</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. Rojo de Metilo (RM)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Agregar indicador rojo de metilo a cultivo de 48h en caldo glucosado.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Color rojo persistente (vía de ácidos mixtos).
+                    </div>
+                </div>
+
+                <!-- Test 6: Movilidad -->
+                <div id="test-providencia-movilidad" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelLavender text-darkText">Movilidad</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. Prueba de Movilidad</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular medio semisólido por picadura e incubar a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Crecimiento que se difunde a través del medio.
+                    </div>
+                </div>
+
+                <!-- Test 7: Malonato -->
+                <div id="test-providencia-malonato" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-pastelLavender text-darkText">Malonato</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">7. Utilización de Malonato</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular caldo malonato con indicador azul de bromotimol e incubar 48h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo (*Providencia* utiliza malonato, alcalinizando el medio y virando de verde a azul).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 9. STAPHYLOCOCCUS ==================== -->
+        <div class="space-y-6 bacterial-section" data-name="staphylococcus">
+            <div class="border-l-4 border-amber-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-sm font-bold">9</span>
+                    Staphylococcus (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Cocos grampositivos en racimos, catalasa positivos, anaerobios facultativos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: Catalasa -->
+                <div id="test-staph-catalasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-darkText">Catalasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. Prueba de Catalasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Colocar una gota de peróxido de hidrógeno ($H_2O_2$) al 30% sobre una colonia en portaobjetos.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo inmediato. Formación vigorosa de burbujas de oxígeno gaseoso ($O_2$).
+                    </div>
+                </div>
+
+                <!-- Test 2: Coagulasa -->
+                <div id="test-staph-coagulasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-darkText">Coagulasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. Prueba de Coagulasa (Placa y Tubo)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Suspender colonia en plasma de conejo reconstituido e incubar a 37°C. Leer aglutinación o formación de coágulo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Diferencial clave: *Staphylococcus aureus* es Coagulasa **Positivo**; los estafilococos coagulasa-negativa (CoNS) son **Negativos**.
+                    </div>
+                </div>
+
+                <!-- Test 3: Manitol -->
+                <div id="test-staph-manitol" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-darkText">Manitol</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Fermentación de Manitol (Agar Manitol Salado)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Sembrar en placa de agar manitol salado (alta concentración de NaCl) e incubar a 37°C por 24-48h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> *S. aureus* fermenta manitol, virando el indicador rojo de fenol a amarillo. *S. epidermidis* crece pero no fermenta (medio rojo/rosado).
+                    </div>
+                </div>
+
+                <!-- Test 4: Novobiocina -->
+                <div id="test-staph-novobiocina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-darkText">Novobiocina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Sensibilidad a Novobiocina (Disco 5 µg)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular césped bacteriano en agar Mueller-Hinton, colocar disco de novobiocina e incubar 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Útil para diferenciar coagulasa-negativos: *Staphylococcus saprophyticus* es **Resistente** (halo &le; 15 mm); *S. epidermidis* es **Sensible**.
+                    </div>
+                </div>
+
+                <!-- Test 5: DNasa -->
+                <div id="test-staph-dnasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-darkText">DNasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. Producción de DNasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Sembrar en agar DNasa, incubar 24h y revelar con HCl 1N o observar halo con azul de toluidina.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> *S. aureus* es DNasa **Positivo** (halo transparente alrededor del crecimiento).
+                    </div>
+                </div>
+
+                <!-- Test 6: Hemólisis -->
+                <div id="test-staph-hemolisis" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-darkText">Hemólisis</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. Patrón de Hemólisis en Agar Sangre</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular en agar sangre de carnero al 5% e incubar a 37°C por 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> *S. aureus* presenta típicamente doble halo de hemólisis (beta-hemólisis completa parcial).
+                    </div>
+                </div>
+
+                <!-- Test 7: Fosfatasa -->
+                <div id="test-staph-fosfatasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-darkText">Fosfatasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">7. Prueba de Fosfatasa Alcalina</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Cultivar en agar con fenolftaleína fosfato y añadir vapores de amoníaco tras incubación.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo (*S. aureus* produce fosfatasa, virando el medio a un color rosado/rojo intenso).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 10. STREPTOCOCCUS ==================== -->
+        <div class="space-y-6 bacterial-section" data-name="streptococcus">
+            <div class="border-l-4 border-rose-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-rose-100 flex items-center justify-center text-sm font-bold">10</span>
+                    Streptococcus (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Cocos grampositivos en cadenas, catalasa negativos, metabolismo fermentativo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: Catalasa -->
+                <div id="test-strep-catalasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-darkText">Catalasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. Prueba de Catalasa (Diferencial con Staph)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Aplicar gota de peróxido de hidrógeno sobre una colonia de estreptococos en portaobjetos.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Negativo. Ausencia total de burbujas (característico que diferencia *Streptococcus* de *Staphylococcus*).
+                    </div>
+                </div>
+
+                <!-- Test 2: Optochina -->
+                <div id="test-strep-optochina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-darkText">Optoquina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. Sensibilidad a Optoquina (Clorhidrato de etilhidrocupreína)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular césped en agar sangre, colocar disco P (Optoquina) e incubar en $CO_2$ a 37°C por 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> *Streptococcus pneumoniae* es **Sensible** (halo de inhibición &ge; 14 mm con disco de 6 mm); *Streptococcus viridans* es **Resistente**.
+                    </div>
+                </div>
+
+                <!-- Test 3: Bacitracina -->
+                <div id="test-strep-bacitracina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-darkText">Bacitracina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Sensibilidad a Bacitracina (Disco A)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular agar sangre con hisopo, aplicar disco de bacitracina (0.04 U) e incubar 24h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> *Streptococcus pyogenes* (Grupo A) es **Sensible** (cualquier halo de inhibición); otros grupos son resistentes.
+                    </div>
+                </div>
+
+                <!-- Test 4: CAMP -->
+                <div id="test-strep-camp" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-darkText">CAMP</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Prueba de CAMP</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Estría central de *S. aureus* beta-lisina productor en agar sangre y estrías perpendiculares de la cepa problema sin tocarse.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> *Streptococcus agalactiae* (Grupo B) es **Positivo** (ampliación de la hemólisis en forma de punta de flecha en la intersección).
+                    </div>
+                </div>
+
+                <!-- Test 5: Bili-Esculina -->
+                <div id="test-strep-bili-esculina" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-darkText">Bili-Esculina</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. Hidrólisis de Bili-Esculina</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular agar bilis esculina, incubar a 37°C por 24-48 horas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Enterococos y *Streptococcus* del grupo D son **Positivos** (el medio se ennegrece por formación de complejo esculetina + hierro).
+                    </div>
+                </div>
+
+                <!-- Test 6: Tolerancia a NaCl -->
+                <div id="test-strep-tol-nac" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-darkText">NaCl 6.5%</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. Tolerancia a Cloruro de Sodio al 6.5%</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular caldo nutritivo con 6.5% de NaCl e incubar a 37°C por hasta 48 horas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Enterococos toleran y crecen (turbidez positiva); *Streptococcus* del grupo D no enterococo son inhibidos (negativo).
+                    </div>
+                </div>
+
+                <!-- Test 7: PIR -->
+                <div id="test-strep-pir" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-darkText">PIR</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">7. Prueba de Piridonil Aminopeptidasa (PIR)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular disco impregnado con sustrato PIR, incubar 4h a 37°C y añadir reactivo N,N-dimetilaminocinamaldehído.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> *Enterococcus* y *Streptococcus pyogenes* son **Positivos** (aparición de color rojo rosado brillante).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 11. PSEUDOMONAS ==================== -->
+        <div class="space-y-6 bacterial-section" data-name="pseudomonas">
+            <div class="border-l-4 border-emerald-400 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-darkText flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-sm font-bold">11</span>
+                    Pseudomonas (Pruebas Bioquímicas)
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">Bacilos gramnegativos aerobios estrictos, oxidasa positivos, no fermentadores.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Test 1: Oxidasa -->
+                <div id="test-pseudomonas-oxidasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-100 text-darkText">Oxidasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">1. Prueba de Oxidasa</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Frotar colonia fresca sobre papel filtro impregnado con clorhidrato de tetrametil-p-fenilendiamina.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo fuerte e inmediato. Viraje a color azul violeta oscuro en menos de 10-30 segundos (presencia de citocromo c oxidasa).
+                    </div>
+                </div>
+
+                <!-- Test 2: Pigmentos -->
+                <div id="test-pseudomonas-pigmento" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-100 text-darkText">Pigmentos</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">2. Producción de Pigmentos (Pioverdina / Piocianina)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Cultivar en agar King A (para piocianina azul) y agar King B (para pioverdina fluorescente).</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> *Pseudomonas aeruginosa* produce piocianina azul-verdosa y pioverdina fluorescente bajo luz UV (característico).
+                    </div>
+                </div>
+
+                <!-- Test 3: O/F -->
+                <div id="test-pseudomonas-of" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-100 text-darkText">Prueba O/F</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">3. Prueba O/F de Hugh y Leifson (Glucosa)</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular dos tubos de medio O/F con glucosa; uno sellado con aceite mineral (Anaerobio) y otro abierto (Aerobio).</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Oxidativo (O). El tubo abierto vira a amarillo en la superficie; el tubo sellado permanece verde (no fermenta glucosa).
+                    </div>
+                </div>
+
+                <!-- Test 4: Movilidad -->
+                <div id="test-pseudomonas-movilidad" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-100 text-darkText">Movilidad</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">4. Prueba de Movilidad</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular por picadura central en medio semisólido de movilidad e incubar a 37°C.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Movilidad por flagelo polar único, con turbidez extendida en el medio.
+                    </div>
+                </div>
+
+                <!-- Test 5: Citrato -->
+                <div id="test-pseudomonas-citrato" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-100 text-darkText">Citrato</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">5. Citrato de Simmons</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular el pico de flauta con asa recta en estría e incubar a 37°C por 24-48h. Dejar un poco abierto el tubo.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Viraje del medio de verde a azul intenso (*P. aeruginosa* utiliza eficientemente citrato).
+                    </div>
+                </div>
+
+                <!-- Test 6: Gelatinasa -->
+                <div id="test-pseudomonas-gelatinasa" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-100 text-darkText">Gelatinasa</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">6. Hidrólisis de Gelatina</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular gelatina nutritiva por picadura profunda, incubar a 37°C y refrigerar.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo. Licuefacción del medio tras la refrigeración por acción de proteasas extracelulares.
+                    </div>
+                </div>
+
+                <!-- Test 7: Crecimiento a 42°C -->
+                <div id="test-pseudomonas-crecimiento-42" class="bg-cardBg rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-100 text-darkText">Crecimiento 42°C</span>
+                        <h3 class="text-lg font-bold text-darkText mt-3 mb-2">7. Crecimiento a 42°C</h3>
+                        <p class="text-sm text-gray-700 mb-4"><strong>Procedimiento:</strong> Inocular caldo nutritivo o agar e incubar en baño o estufa a 42°C por 24-48h.</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-800">
+                        <strong>Posibles Resultados:</strong> Positivo (*Pseudomonas aeruginosa* es una de las pocas especies que tolera y prolifera a 42°C).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- General Bacterial Information Sections (Below) -->
+    <section id="info-bacterias" class="bg-white py-16 border-t border-gray-100 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-pastelPurple/60 text-darkText">Módulo de Referencia Teórica</span>
+                <h2 class="text-3xl font-extrabold text-darkText mt-3">Información General de las Bacterias</h2>
+                <p class="text-gray-600 mt-2">Resumen clínico y microbiológico esencial para estudiantes de diagnóstico.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Info 1: Klebsiella -->
+                <div class="bg-pastelPink/10 border border-pastelPink/50 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-pink-500"></i> Klebsiella spp.
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Género que comprende bacilos gramnegativos inmóviles caracterizados por la presencia de una cápsula polisacárida prominente que confiere aspecto mucoide a las colonias en agar. Son patógenos oportunistas frecuentes causantes de neumonía nosocomial (neumonía por aspiración clásica de lóbulos superiores con aspecto de "jalea de grosella"), infecciones urinarias y bacteriemias.
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> Alta resistencia a múltiples fármacos mediada por BLEE (Betalactamasas de Espectro Extendido) y carbapenemasas (KPC).
+                    </div>
+                </div>
+
+                <!-- Info 2: Escherichia coli -->
+                <div class="bg-pastelBlue/10 border border-pastelBlue/50 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-blue-500"></i> Escherichia coli
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Huésped habitual del tracto gastrointestinal humano y animal, indicador primario de contaminación fecal en aguas y alimentos. Aunque la mayoría de cepas son comensales inofensivas, existen patotipos patógenos especializados (ETEC, EPEC, EHEC/STEC productora de toxina Shiga, EIEC y EAEC) capaces de provocar desde diarrea acuosa hasta colitis hemorrágica y síndrome urémico hemolítico (SUH).
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> Principal agente causal de Infecciones del Tracto Urinario (ITU) adquiridas en la comunidad.
+                    </div>
+                </div>
+
+                <!-- Info 3: Proteus -->
+                <div class="bg-pastelYellow/10 border border-pastelYellow/50 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-yellow-600"></i> Proteus spp. (*P. mirabilis*, *P. vulgaris*)
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Bacilos entéricos notablemente móviles que muestran un crecimiento en ondas concéntricas ("enjambre") sobre placas de agar sólido. Poseen una potente enzima ureasa que alcaliniza la orina, favoreciendo la precipitación de sales minerales y la formación de cálculos renales complejos (estruvita y apatita carbónica), frecuentemente asociados a infecciones urinarias complicadas en pacientes con catéteres.
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> Alta asociación con urolitiasis infecciosa e infecciones nosocomiales de heridas quirúrgicas.
+                    </div>
+                </div>
+
+                <!-- Info 4: Enterobacter -->
+                <div class="bg-pastelPurple/10 border border-pastelPurple/50 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-purple-500"></i> Enterobacter spp.
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Bacilos gramnegativos anaerobios facultativos, móviles, ampliamente distribuidos en la naturaleza (agua, suelo, vegetales y tracto intestinal). En el ámbito hospitalario se comportan como patógenos oportunistas de gran importancia, afectando a pacientes inmunocomprometidos o sometidos a procedimientos invasivos, causando bacteriemias, infecciones respiratorias y urinarias.
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> Poseen cefalosporinasas inducibles cromosómicas (AmpC), lo que puede generar resistencia durante el tratamiento.
+                    </div>
+                </div>
+
+                <!-- Info 5: Citrobacter -->
+                <div class="bg-pastelGreen/10 border border-pastelGreen/50 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-green-600"></i> Citrobacter spp.
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Bacterias oportunistas pertenecientes a la microbiota intestinal normal que ocasionalmente causan infecciones nosocomiales del tracto urinario, respiratorio y tejidos blandos. *Citrobacter freundii* destaca por su capacidad de producir sulfhídrico ($H_2S$), lo que exige un riguroso panel bioquímico diferencial para evitar confusiones diagnósticas con géneros patógenos estrictos como *Salmonella*.
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> *Citrobacter koseri* está asociado a brotes de meningitis neonatal y abscesos cerebrales en lactantes.
+                    </div>
+                </div>
+
+                <!-- Info 6: Serratia -->
+                <div class="bg-pastelOrange/10 border border-pastelOrange/50 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-orange-500"></i> Serratia spp.
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Bacilos oportunistas ambientales que destacan por la síntesis de enzimas hidrolíticas potentes (gelatinasa, lipasa, DNasa) y, en algunas cepas (*Serratia marcescens*), por la producción de un pigmento rojo característico llamado prodigiosina. Son patógenos nosocomiales asociados a neumonías, infecciones urinarias y contaminación de soluciones intravenosas o desinfectantes.
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> Resistencia intrínseca a varios antibióticos betalactámicos y aminoglucósidos.
+                    </div>
+                </div>
+
+                <!-- Info 7: Morganella -->
+                <div class="bg-pastelTeal/10 border border-pastelTeal/50 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-teal-600"></i> Morganella morganii
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Bacilo gramnegativo móvil integrante de la familia Enterobacteriaceae, reconocido por su potente actividad de ureasa y su producción intensa de indol. Es un patógeno oportunista relacionado principalmente con infecciones del tracto urinario en pacientes sondados, así como infecciones de heridas quirúrgicas y bacteriemias de origen nosocomial.
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> Frecuentemente multirresistente; se asocia a cuadros clínicos severos en pacientes ancianos o debilitados.
+                    </div>
+                </div>
+
+                <!-- Info 8: Providencia -->
+                <div class="bg-pastelLavender/10 border border-pastelLavender/50 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-indigo-500"></i> Providencia spp. (*P. stuartii*, *P. rettgeri*)
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Bacilos entéricos móviles que destacan por su capacidad de desaminar la fenilalanina y utilizar citrato. Tienen especial tropismo por el tracto urinario, siendo patógenos prevalentes en pacientes con sondas urinarias permanentes de larga estancia en instituciones de cuidado crónico, donde pueden colonizar biofilms y persistir tenazmente.
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> Resistencia elevada a múltiples agentes antimicrobianos comunes en entornos hospitalarios.
+                    </div>
+                </div>
+
+                <!-- Info 9: Staphylococcus -->
+                <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-amber-600"></i> Staphylococcus spp.
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Cocos grampositivos agrupados en racimos similares a uvas. Habitan comúnmente en la piel y mucosas humanas. *Staphylococcus aureus* es un patógeno virulento capaz de causar infecciones supurativas graves, síndrome de piel escaldada, intoxicaciones alimentarias y shock tóxico, además de ser tristemente célebre por cepas resistentes como SAMR (MRSA).
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> Principal agente de infecciones en heridas quirúrgicas e implantes protésicos.
+                    </div>
+                </div>
+
+                <!-- Info 10: Streptococcus -->
+                <div class="bg-rose-50 border border-rose-200 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-rose-600"></i> Streptococcus spp.
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Cocos grampositivos catalasa-negativos que se disponen en cadenas o pares. Se clasifican según su patrón de hemólisis (alfa, beta y gamma) y los antígenos de Lancefield. Incluyen patógenos relevantes como *Streptococcus pyogenes* (faringitis, fiebre reumática), *Streptococcus pneumoniae* (neumonía y meningitis) y *Streptococcus agalactiae* (sepsis neonatal).
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> Causantes mayores de infecciones respiratorias altas y bajas adquiridas en la comunidad.
+                    </div>
+                </div>
+
+                <!-- Info 11: Pseudomonas -->
+                <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-darkText flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bacteria text-emerald-600"></i> Pseudomonas aeruginosa
+                    </h3>
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        Bacilo gramnegativo aerobio estricto, no fermentador, oxidasa positivo, ampliamente presente en ambientes húmedos y hospitales. Se comporta como un patógeno oportunista devastador en pacientes quemados, con fibrosis quística o inmunosuprimidos, destacando por su resistencia intrínseca a múltiples antibióticos y desinfectantes.
+                    </p>
+                    <div class="text-xs text-gray-600 bg-white p-3 rounded-xl border border-gray-100">
+                        <strong>Relevancia Clínica:</strong> Frecuente en neumonías asociadas a ventilación mecánica e infecciones nosocomiales severas.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darkText text-white py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-pastelPurple flex items-center justify-center text-darkText font-bold">
+                    <i class="fa-solid fa-flask-vial text-sm"></i>
+                </div>
+                <span class="font-bold text-lg tracking-tight">Microterio</span>
+            </div>
+            <p class="text-xs text-gray-400">
+                Plataforma Educativa de Identificación Bioquímica Bacteriológica • Creado para estudiantes de Bioquímica Diagnóstica.
+            </p>
+            <div class="text-xs text-gray-400">
+                &copy; 2026 Microterio
+            </div>
+        </div>
+    </footer>
+
+    <!-- Navegación, búsqueda y adaptación móvil -->
+    <script>
+      const $ = (selector, root=document) => root.querySelector(selector);
+      const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
+      const mobileMenuBtn = $('#mobile-menu-btn');
+      const mobileMenu = $('#mobile-menu');
+      const homeView = $('#home-view');
+      const resultsView = $('#results-view');
+      const searchInput = $('#bacteria-search');
+      const mainContent = $('main');
+      const infoSection = $('#info-bacterias');
+      let genreSections = [];
+
+      function normalize(value) {
+        return (value || '').normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase().replace(/[^a-z0-9. ]/g, ' ').replace(/\\s+/g, ' ').trim();
+      }
+      function showHome() {
+        document.body.classList.add('home-page');
+        homeView.classList.add('active');
+        resultsView.classList.remove('active');
+        mainContent.classList.add('hidden');
+        if (infoSection) infoSection.classList.add('hidden');
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+      function showResults(matches, query) {
+        document.body.classList.remove('home-page');
+        homeView.classList.remove('active');
+        resultsView.classList.add('active');
+        mainContent.classList.remove('hidden');
+        $$('#results-content > *').forEach(el => el.remove());
+        const title = $('#results-title');
+        const message = $('#results-message');
+        title.textContent = query;
+        if (!matches.length) {
+          message.textContent = 'No se encontraron coincidencias. Revisa la escritura o intenta con un género, por ejemplo: Klebsiella, Escherichia coli, Staphylococcus o Pseudomonas.';
+          mainContent.classList.add('hidden');
+        } else {
+          message.textContent = matches.length === 1 ? 'Se encontró un grupo relacionado con tu búsqueda.' : 'Se encontraron ' + matches.length + ' grupos relacionados con tu búsqueda.';
+          matches.forEach(section => {
+            const clone = section.cloneNode(true);
+            clone.classList.remove('hidden');
+            clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+            $('#results-content').appendChild(clone);
+          });
+          mainContent.classList.add('hidden');
+        }
+        if (infoSection) infoSection.classList.add('hidden');
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+      function searchBacteria() {
+        const raw = searchInput.value.trim();
+        if (!raw) {
+          $('#results-title').textContent = 'Escribe un género o especie';
+          showResults([], 'Búsqueda vacía');
+          $('#results-message').textContent = 'Introduce un término, por ejemplo Klebsiella pneumoniae.';
+          return;
+        }
+        const q = normalize(raw);
+        const matches = genreSections.filter(section => {
+          const heading = normalize(section.querySelector('h2')?.innerText || '');
+          const content = normalize(section.innerText);
+          return heading.includes(q) || q.split(' ').every(token => content.includes(token));
+        });
+        showResults(matches, raw);
+      }
+      function openGenre(name) {
+        searchInput.value = name;
+        searchBacteria();
+      }
+      mobileMenuBtn?.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', String(!isHidden));
+      });
+      function closeMobileMenu() { mobileMenu?.classList.add('hidden'); mobileMenuBtn?.setAttribute('aria-expanded','false'); }
+      function toggleMobileAccordion(id) {
+        const el = document.getElementById(id);
+        const icon = document.getElementById('icon-' + id);
+        if (!el) return;
+        const wasHidden = el.classList.contains('hidden');
+        $$('#mobile-menu [id^="mob-"]').forEach(item => { if(item !== el) item.classList.add('hidden'); });
+        $$('#mobile-menu [id^="icon-mob-"]').forEach(item => item.classList.remove('rotate-180'));
+        el.classList.toggle('hidden', !wasHidden);
+        if(icon && wasHidden) icon.classList.add('rotate-180');
+      }
+      window.closeMobileMenu = closeMobileMenu;
+      window.toggleMobileAccordion = toggleMobileAccordion;
+      $('#search-btn')?.addEventListener('click', searchBacteria);
+      searchInput?.addEventListener('keydown', e => { if(e.key === 'Enter') { e.preventDefault(); searchBacteria(); } });
+      $('#home-reset')?.addEventListener('click', showHome);
+      $$('.back-home').forEach(btn => btn.addEventListener('click', showHome));
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const children = [...mainContent.children];
+        genreSections = children.filter(el => el !== infoSection && el.querySelector('h2'));
+        genreSections.forEach((section, index) => {
+          section.classList.add('bacterial-section');
+          section.classList.add('hidden');
+          const name = section.querySelector('h2')?.innerText.replace(/^\\d+\\s*/, '').replace(/\\s*\\(Pruebas Bioquímicas\\)/i,'').trim();
+          if (!name) return;
+          const card = document.createElement('button');
+          card.type = 'button';
+          card.className = 'text-left bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-300 transition focus:outline-none focus:ring-2 focus:ring-indigo-400';
+          card.innerHTML = '<span class="text-xs font-semibold text-indigo-600">Género bacteriano</span><span class="block text-lg font-bold mt-1"></span><span class="block text-sm text-gray-600 mt-2">Ver pruebas bioquímicas y características <span aria-hidden="true">→</span></span>';
+          card.querySelector('span.block').textContent = name;
+          card.addEventListener('click', () => openGenre(name));
+          $('#genre-cards').appendChild(card);
+        });
+        if (infoSection) {
+          infoSection.classList.add('hidden');
+          const infoClone = infoSection.cloneNode(true);
+          infoClone.removeAttribute('id');
+          infoClone.classList.remove('hidden');
+          infoClone.classList.add('mt-8');
+          $('#home-view').appendChild(infoClone);
+        }
+        mainContent.classList.add('hidden');
+        showHome();
+      });
+
+
+    // Banco de preguntas educativas: tres versiones por cada género incluido en Microterio.
+    (function(){
+      const bank = {
+        "Klebsiella":[
+          ["¿Cuál es el resultado típico de movilidad en Klebsiella pneumoniae?",["Positivo","Negativo","Variable en todas las cepas","No interpretable"],1,"K. pneumoniae suele ser inmóvil; el crecimiento permanece en la línea de inoculación."],
+          ["¿Qué aspecto suele presentar Klebsiella en agar por su cápsula?",["Colonias mucoides","Colonias secas y rugosas","Pigmento rojo intenso","Anillo de swarming"],0,"La cápsula polisacárida prominente favorece colonias de aspecto mucoide."],
+          ["¿Qué resultado de indol diferencia habitualmente a K. oxytoca de K. pneumoniae?",["Ambas negativas","K. oxytoca positiva y K. pneumoniae negativa","K. pneumoniae positiva y K. oxytoca negativa","Ambas siempre positivas"],1,"K. oxytoca suele producir indol, mientras K. pneumoniae generalmente no." ]
+        ],
+        "Proteus":[
+          ["¿Qué fenómeno de crecimiento en agar es característico de Proteus?",["Swarming o crecimiento en ondas","Colonias mucoides capsuladas","Pigmento azul verdoso","Colonias exclusivamente puntiformes"],0,"Proteus puede presentar crecimiento invasivo en ondas (swarming) en medios sólidos."],
+          ["¿Qué actividad enzimática suele ser intensa en Proteus?",["Ureasa","Coagulasa","Oxidasa","Catalasa negativa"],0,"La producción de ureasa es característica y contribuye a alcalinizar la orina."],
+          ["¿Qué especie de Proteus suele producir indol?",["P. mirabilis","P. vulgaris","Ambas especies siempre","Ninguna especie"],1,"P. vulgaris suele ser indol positivo; P. mirabilis generalmente es negativo." ]
+        ],
+        "Pseudomonas":[
+          ["¿Cuál es el resultado típico de la prueba de oxidasa en Pseudomonas aeruginosa?",["Positivo","Negativo","Siempre variable","No aplica"],0,"P. aeruginosa es oxidasa positiva, dato útil frente a muchas enterobacterias."],
+          ["¿Qué pigmento puede producir Pseudomonas aeruginosa?",["Piocianina","Estafiloxantina","Prodigiosina exclusivamente","Melanina obligatoria"],0,"La piocianina es un pigmento azul verdoso característico de P. aeruginosa."],
+          ["¿Qué tipo de metabolismo presenta P. aeruginosa respecto a la glucosa?",["No fermentador","Fermentador vigoroso de lactosa","Fermentador de lactosa tardío","Fermentador exclusivo de sacarosa"],0,"P. aeruginosa es un bacilo no fermentador; utiliza la glucosa por vía oxidativa." ]
+        ],
+        "Staphylococcus":[
+          ["¿Qué resultado se espera en la prueba de catalasa para Staphylococcus?",["Positivo con burbujas","Negativo sin burbujas","Producción de precipitado negro","Viraje a azul"],0,"La catalasa descompone el peróxido de hidrógeno y libera oxígeno en forma de burbujas."],
+          ["¿Qué prueba permite diferenciar clásicamente S. aureus de estafilococos coagulasa negativos?",["Coagulasa","Oxidasa","Citrato","Rojo de metilo"],0,"S. aureus suele ser coagulasa positivo; los CoNS son negativos."],
+          ["¿Cuál es la disposición microscópica característica de Staphylococcus?",["Cocos en racimos","Bacilos en empalizada","Cocos en cadenas largas","Bacilos curvos"],0,"Los estafilococos son cocos grampositivos que suelen agruparse en racimos." ]
+        ],
+        "Streptococcus":[
+          ["¿Cuál es el resultado habitual de catalasa en Streptococcus?",["Negativo","Positivo intenso","Variable y siempre burbujeante","No interpretable"],0,"Los estreptococos son catalasa negativos, a diferencia de Staphylococcus."],
+          ["¿Cómo suelen observarse agrupados los cocos de Streptococcus?",["En cadenas o pares","En racimos como uvas","En tétradas exclusivamente","En empalizadas"],0,"La disposición en cadenas o pares es característica del género."],
+          ["¿Qué prueba se utiliza para diferenciar S. pyogenes de otros estreptococos betahemolíticos?",["Sensibilidad a bacitracina como prueba orientativa","Coagulasa","Ureasa","Citrato de Simmons"],0,"La sensibilidad a bacitracina es una prueba clásica orientativa para S. pyogenes; requiere confirmación." ]
+        ],
+        "Enterobacter":[
+          ["¿Qué resultado suele presentar Enterobacter en Voges-Proskauer?",["Positivo","Negativo","Siempre indeterminado","No produce crecimiento"],0,"Enterobacter suele ser VP positivo por producción de acetoinas."],
+          ["¿Qué resultado suele obtenerse en rojo de metilo para Enterobacter?",["Negativo","Positivo","Siempre intensamente positivo","No aplica"],0,"El perfil típico descrito para Enterobacter es rojo de metilo negativo."],
+          ["¿Cómo suele ser la movilidad de Enterobacter?",["Positiva","Negativa en todas las especies","Ausente por cápsula","No evaluable"],0,"Las especies de Enterobacter suelen ser bacilos móviles." ]
+        ],
+        "Citrobacter":[
+          ["¿Qué característica bioquímica puede presentar Citrobacter freundii y complicar su diferenciación?",["Producción de H₂S","Coagulasa positiva","Catalasa negativa","Pigmento piocianina"],0,"C. freundii puede producir H₂S, por lo que debe diferenciarse cuidadosamente de otros bacilos."],
+          ["¿A qué grupo bacteriano pertenece Citrobacter?",["Bacilos gramnegativos de Enterobacterales","Cocos grampositivos catalasa positivos","Bacilos ácido-alcohol resistentes","Bacilos grampositivos esporulados"],0,"Citrobacter es un género de bacilos gramnegativos perteneciente a Enterobacterales."],
+          ["¿Por qué conviene utilizar un panel bioquímico diferencial para Citrobacter?",["Porque puede compartir características con otros enterobacterales","Porque no crece en medios de cultivo","Porque siempre es oxidasa positiva","Porque forma exclusivamente cadenas"],0,"Sus perfiles pueden solaparse con otros géneros, por lo que se interpreta un conjunto de pruebas." ]
+        ],
+        "Serratia":[
+          ["¿Qué pigmento se asocia clásicamente con algunas cepas de Serratia marcescens?",["Prodigiosina","Piocianina","Pioverdina","Melanina"],0,"Algunas cepas de S. marcescens producen el pigmento rojo prodigiosina; no todas lo expresan."],
+          ["¿La producción de pigmento rojo en Serratia marcescens es constante en todas las condiciones?",["No, depende de la cepa y las condiciones","Sí, siempre aparece a 37 °C","Sí, es obligatoria en cualquier medio","No, nunca produce pigmentos"],0,"La expresión de prodigiosina depende de condiciones ambientales y puede no observarse."],
+          ["¿A qué grupo pertenece Serratia marcescens?",["Bacilos gramnegativos de Enterobacterales","Cocos grampositivos en racimos","Bacilos no fermentadores oxidasa positivos","Espiroquetas"],0,"Serratia es un género de bacilos gramnegativos de Enterobacterales." ]
+        ],
+        "Morganella":[
+          ["¿Qué prueba suele ser positiva en Morganella morganii y resulta útil para su identificación?",["Ureasa","Coagulasa","DNasa exclusivamente","Oxidasa"],0,"Morganella morganii suele producir ureasa, una característica útil en su perfil bioquímico."],
+          ["¿Cuál es la reacción típica de indol de Morganella morganii?",["Positiva","Negativa","Siempre variable por medio","No produce indol ni en condiciones adecuadas"],0,"M. morganii suele ser indol positiva."],
+          ["¿A qué familia bacteriana se asocia Morganella?",["Morganellaceae","Staphylococcaceae","Streptococcaceae","Pseudomonadaceae"],0,"Morganella pertenece a Morganellaceae, dentro del orden Enterobacterales." ]
+        ],
+        "Providencia":[
+          ["¿A qué grupo pertenece el género Providencia?",["Bacilos gramnegativos de Enterobacterales","Cocos grampositivos catalasa positivos","Bacilos ácido-alcohol resistentes","Bacilos grampositivos esporulados"],0,"Providencia comprende bacilos gramnegativos pertenecientes a Enterobacterales."],
+          ["¿Qué característica puede ayudar a diferenciar Providencia de otros géneros cercanos?",["Su perfil de utilización de carbohidratos y pruebas bioquímicas","La producción obligatoria de coagulasa","La formación de endosporas","La tinción ácido-alcohol resistente"],0,"La diferenciación requiere valorar el patrón combinado de pruebas bioquímicas."],
+          ["¿Cuál es una especie clínicamente relevante del género Providencia?",["P. stuartii","P. aeruginosa","P. vulgaris","P. pneumoniae"],0,"Providencia stuartii se asocia con infecciones urinarias, especialmente en pacientes con catéter." ]
+        ]
+      };
+      // Siete preguntas complementarias para que cada examen tenga al menos diez reactivos.
+      // Se enfocan en principios generales de identificación bacteriana.
+      const preguntasComplementarias = [
+        ["¿Qué permite observar principalmente la tinción de Gram?",["La morfología y la reacción tintorial de las bacterias","La producción de ureasa","La utilización de citrato","La producción de indol"],0,"La tinción de Gram permite diferenciar bacterias según las características de su pared celular y observar su morfología y agrupación."],
+        ["En agar MacConkey, ¿qué aspecto suelen presentar las bacterias fermentadoras de lactosa?",["Colonias rosadas o rojizas","Colonias siempre negras","Colonias azul-verdosas","Ausencia obligatoria de crecimiento"],0,"La fermentación de lactosa produce ácido, lo que ocasiona el viraje del indicador y colonias rosadas o rojizas."],
+        ["¿Qué detecta principalmente la prueba de indol?",["La capacidad de degradar triptófano y producir indol","La producción de citocromo c oxidasa","La hidrólisis de urea","La utilización de citrato"],0,"La prueba detecta indol generado a partir del triptófano mediante la enzima triptofanasa."],
+        ["¿Qué indica un resultado positivo en la prueba de oxidasa?",["Presencia de actividad de citocromo c oxidasa","Producción de coagulasa","Fermentación de lactosa","Producción de esporas"],0,"La prueba de oxidasa evidencia la actividad de la enzima citocromo c oxidasa en la cadena respiratoria."],
+        ["¿Cuál es la finalidad de evaluar la movilidad bacteriana en un medio semisólido?",["Determinar si la bacteria se desplaza fuera de la línea de inoculación","Medir la fermentación de lactosa","Detectar cápsulas exclusivamente","Identificar la producción de pigmentos"],0,"Las bacterias móviles presentan crecimiento difuso que se extiende desde la línea de punción; las inmóviles crecen principalmente sobre ella."],
+        ["¿Qué demuestra generalmente una prueba de ureasa positiva?",["La hidrólisis de urea con producción de amoníaco","La degradación de triptófano","La reducción de nitratos exclusivamente","La producción de coagulasa"],0,"La ureasa hidroliza la urea y libera amoníaco, elevando el pH del medio y provocando el cambio del indicador."],
+        ["En el medio TSI, ¿qué puede sugerir el ennegrecimiento del medio?",["Producción de sulfuro de hidrógeno (H₂S)","Fermentación de lactosa exclusivamente","Producción de indol","Actividad de catalasa"],0,"El H₂S reacciona con sales de hierro del medio y forma un precipitado negro." ]
+      ];
+      Object.keys(bank).forEach(g => { bank[g] = bank[g].concat(preguntasComplementarias); });
+      const versions = [
+        {lead:"Selecciona la opción que responde correctamente:",order:[0,1,2,3,4,5,6,7,8,9]},
+        {lead:"Con base en las características bioquímicas y microbiológicas, identifica la respuesta correcta:",order:[2,0,1,6,7,8,9,3,4,5]},
+        {lead:"En el contexto de la identificación bacteriana, ¿cuál opción es la adecuada?",order:[1,2,0,8,9,3,4,5,6,7]}
+      ];
+      const genre=document.getElementById('quiz-genre'), version=document.getElementById('quiz-version'), area=document.getElementById('quiz-area');
+      Object.keys(bank).forEach(g=>{const o=document.createElement('option');o.value=g;o.textContent=g;genre.appendChild(o);});
+      let current=[];
+      document.getElementById('quiz-start').addEventListener('click',()=>{
+        const g=genre.value; if(!g){area.innerHTML='<p class="text-center text-rose-600 font-semibold">Selecciona primero un género bacteriano.</p>';return;}
+        const v=Number(version.value)-1, plan=versions[v]; current=plan.order.map(i=>bank[g][i]);
+        area.innerHTML=`<form id="quiz-form" class="space-y-5"><div class="flex flex-wrap justify-between gap-2 border-b pb-3"><h3 class="text-xl font-bold">${g} · Versión ${v+1}</h3><span class="text-sm text-gray-500">${current.length} preguntas · Opción múltiple</span></div>`+current.map((q,i)=>`<fieldset class="rounded-2xl border border-gray-200 p-4 sm:p-5"><legend class="font-bold text-gray-900 px-1">${i+1}. ${q[0]}</legend><p class="text-sm text-indigo-700 mt-1 mb-3">${plan.lead}</p><div class="grid sm:grid-cols-2 gap-2">${q[1].map((op,j)=>`<label class="flex gap-2 items-start rounded-xl border border-gray-200 p-3 hover:bg-indigo-50 cursor-pointer"><input required type="radio" name="q${i}" value="${j}" class="mt-1 accent-indigo-600"><span>${String.fromCharCode(65+j)}. ${op}</span></label>`).join('')}</div></fieldset>`).join('')+`<div class="text-center"><button class="px-7 py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700" type="submit">Calificar examen</button></div></form>`;
+        document.getElementById('quiz-form').addEventListener('submit',e=>{e.preventDefault();const fd=new FormData(e.currentTarget);let score=0;const details=current.map((q,i)=>{const chosen=Number(fd.get('q'+i)),ok=chosen===q[2];if(ok)score++;return `<div class="rounded-xl p-4 ${ok?'bg-green-50 border-green-200':'bg-rose-50 border-rose-200'} border"><p class="font-semibold">${i+1}. ${ok?'Respuesta correcta':'Respuesta incorrecta'}</p><p class="text-sm mt-1">Tu respuesta: ${q[1][chosen]}</p><p class="text-sm">Respuesta correcta: <strong>${q[1][q[2]]}</strong></p><p class="text-sm text-gray-700 mt-2">${q[3]}</p></div>`;}).join('');area.innerHTML=`<div class="text-center mb-5"><p class="text-sm text-gray-500">Resultado · ${g} · Versión ${v+1}</p><p class="text-4xl font-extrabold text-indigo-700 mt-1">${score}/${current.length}</p><p class="text-gray-600">${Math.round(score/current.length*100)}% de respuestas correctas</p><div class="mt-4 rounded-2xl border border-indigo-200 bg-indigo-50 p-4"><p class="text-sm font-semibold text-indigo-800">Calificación final</p><p class="text-3xl font-extrabold text-indigo-700">${(score/current.length*10).toFixed(1)} / 10</p><p class="text-sm font-medium ${score/current.length>=0.6?'text-green-700':'text-rose-700'}">${score/current.length>=0.6?'Aprobado':'No aprobado'}</p></div></div><div class="space-y-3">${details}</div><div class="text-center mt-6 flex flex-wrap justify-center gap-3"><button id="quiz-again" class="px-5 py-3 rounded-xl bg-indigo-600 text-white font-semibold">Repetir esta versión</button><button id="quiz-change" class="px-5 py-3 rounded-xl bg-gray-100 text-gray-800 font-semibold">Elegir otro examen</button></div>`;document.getElementById('quiz-again').onclick=()=>document.getElementById('quiz-start').click();document.getElementById('quiz-change').onclick=()=>{area.innerHTML='';genre.focus();};});
+      });
+    })();
+    </script>
+</body>
+</html>
